@@ -35,10 +35,7 @@ const HomeScreen = ({ navigation }) => {
       />
       <Button
         title="Find Matches"
-        onPress={() => {
-          // Simulate User Filtering Options
-          alert('Finding matches...');
-        }}
+        onPress={() => navigation.navigate('FindMatchScreen')}
       />
     </View>
   );

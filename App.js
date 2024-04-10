@@ -7,6 +7,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
+import FindMatchScreen from "./screens/FindMatchScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Matches" component={MatchesScreen} />
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+        <Stack.Screen name="FindMatchScreen" component={FindMatchScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
