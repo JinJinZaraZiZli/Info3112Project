@@ -1,22 +1,52 @@
-import React from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button, TextInput, StyleSheet, Image } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
-const EditProfileScreen = () => {
+const EditProfileScreen = ({ navigation }) => {  // navigation prop 추가
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState('');
+  const [interests, setInterests] = useState('');
+  const [age, setAge] = useState('');
+
+  const pickImage = async () => {
+    let result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (result.granted === false) {
+      alert('Sorry, we need camera roll permissions to make this work!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [3, 4],
+      quality: 1,
+    });
+
+    if (!pickerResult.cancelled && pickerResult.assets) {
+      setImage(pickerResult.assets[0].uri);
+    } else {
+      console.log('Image picking cancelled.');
+    }
+  };
+
+  const saveProfile = () => {
+    // 네비게이션으로 ProfileScreen에 데이터 전달
+    navigation.navigate('Profile', { image, name, interests, age });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Edit Profile</Text>
-      <Button
-        title="Upload Image"
-        onPress={() => {
-          // Simulate Image Upload
-          alert('Uploading Image...');
-        }}
-      />
-      <TextInput style={styles.input} placeholder="Edit Interests" />
-      <TextInput style={styles.input} placeholder="Edit Age" />
+      <Button title="Upload Image" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+      <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
+      <TextInput style={styles.input} placeholder="Edit Interests" value={interests} onChangeText={setInterests} />
+      <TextInput style={styles.input} placeholder="Edit Age" value={age} onChangeText={setAge} />
+      <Button title="Save Profile" onPress={saveProfile} />
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -36,6 +66,12 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
     paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
     marginBottom: 10,
   },
 });
