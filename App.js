@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import SettingsScreen from "./screens/SettingsScreen";
+import FeedbackScreen from "./screens/FeedbackScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
 import FindMatchScreen from "./screens/FindMatchScreen";
@@ -20,7 +20,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name="Feedback" component={FeedbackScreen} />
         <Stack.Screen name="Matches" component={MatchesScreen} />
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen name="FindMatchScreen" component={FindMatchScreen} />

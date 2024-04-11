@@ -1,10 +1,17 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Linking } from 'react-native';
 import { useMatches } from '../contexts/MatchContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ navigation }) => {
   const { setIsSubscribed } = useMatches();
+
+  const openTwitterLogin = () => {
+    Linking.openURL('https://twitter.com/i/flow/login').catch(err => {
+      console.error('Failed opening page because: ', err);
+      alert('Failed to open page');
+    });
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -18,11 +25,11 @@ const HomeScreen = ({ navigation }) => {
         <Icon name="heart" size={20} color="#fff" />
         <Text style={styles.buttonText}>View Matches</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Settings')}>
-        <Icon name="cog" size={20} color="#fff" />
-        <Text style={styles.buttonText}>Settings</Text>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feedback')}>
+        <Icon name="comments" size={20} color="#fff" />
+        <Text style={styles.buttonText}>Feedback</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => alert('Connecting with Social Media...')}>
+      <TouchableOpacity style={styles.button} onPress={openTwitterLogin}>
         <Icon name="twitter" size={20} color="#fff" />
         <Text style={styles.buttonText}>Connect with Social Media</Text>
       </TouchableOpacity>
