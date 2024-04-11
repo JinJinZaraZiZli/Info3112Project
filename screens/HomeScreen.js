@@ -1,62 +1,82 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { useMatches } from '../contexts/MatchContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ navigation }) => {
+  const { setIsSubscribed } = useMatches();
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Welcome to Code Cupid!</Text>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="View Profile"
-          onPress={() => navigation.navigate('Profile')}
-        />
-        <Button
-          title="View Matches"
-          onPress={() => navigation.navigate('Matches')}
-        />
-        <Button
-          title="Settings"
-          onPress={() => navigation.navigate('Settings')}
-        />
-      </View>
-      <Button
-        title="Connect with Social Media"
-        onPress={() => {
-          // Simulate OAuth Integration
-          alert('Connecting with Social Media...');
-        }}
-      />
-      <Button
-        title="Subscribe"
-        onPress={() => {
-          // Simulate Subscription Options
-          alert('Subscribing...');
-        }}
-      />
-      <Button
-        title="Find Matches"
-        onPress={() => navigation.navigate('FindMatchScreen')}
-      />
-    </View>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Profile')}>
+        <Icon name="user" size={20} color="#fff" />
+        <Text style={styles.buttonText}>View Profile</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Matches')}>
+        <Icon name="heart" size={20} color="#fff" />
+        <Text style={styles.buttonText}>View Matches</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Settings')}>
+        <Icon name="cog" size={20} color="#fff" />
+        <Text style={styles.buttonText}>Settings</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => alert('Connecting with Social Media...')}>
+        <Icon name="twitter" size={20} color="#fff" />
+        <Text style={styles.buttonText}>Connect with Social Media</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => {
+        setIsSubscribed(true);
+        alert('Subscribed successfully!');
+      }}>
+        <Icon name="rss" size={20} color="#fff" />
+        <Text style={styles.buttonText}>Subscribe</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('FindMatchScreen')}>
+        <Icon name="search" size={20} color="#fff" />
+        <Text style={styles.buttonText}>Find Matches</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    backgroundColor: '#f8f9fa',
+    paddingTop: 30,
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
+    color: '#4a4e69',
     marginBottom: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  buttonContainer: {
-    marginBottom: 20,
-    width: '100%',
+  button: {
+    backgroundColor: '#ff6b6b',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    marginBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  buttonText: {
+    color: '#fff',
+    marginLeft: 10,
+    fontWeight: 'bold',
+  },
+  logo: {
+    width: 250,
+    height: 250,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginBottom: 20,
   },
 });
 
